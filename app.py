@@ -389,7 +389,6 @@ def get_gspread_client():
             creds_dict = json.loads(st.secrets["gcp_json"])
 
         if creds_dict:
-            # 🌟 秘密鍵のバックスラッシュ・改行エスケープ（symbol 92）を安全に自動修復
             if "private_key" in creds_dict:
                 pk = str(creds_dict["private_key"]).strip().strip('"').strip("'")
                 pk = pk.replace("\\n", "\n")
@@ -397,7 +396,6 @@ def get_gspread_client():
             creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
             return gspread.authorize(creds)
 
-        # ローカル実行時のフォールバック
         for p in [
             "key.json",
             os.path.expanduser("~/nar_system/key.json"),
@@ -419,7 +417,6 @@ def load_sheet_data():
     try:
         ss = gc.open(SS_NAME)
 
-        # 1. 当日予想シート
         df_today = pd.DataFrame()
         try:
             ws_today = ss.worksheet("当日予想")
@@ -429,7 +426,6 @@ def load_sheet_data():
         except Exception:
             pass
 
-        # 2. 日次収支シート
         df_daily = pd.DataFrame()
         try:
             ws_daily = ss.worksheet("日次収支")
@@ -439,7 +435,6 @@ def load_sheet_data():
         except Exception:
             pass
 
-        # 3. Jpn予想シート（ダートグレード用仮枠）
         df_jpn = pd.DataFrame()
         try:
             ws_jpn = ss.worksheet("Jpn予想")
@@ -458,7 +453,6 @@ df_today, df_daily_log, df_jpn = load_sheet_data()
 
 
 def extract_selected_picks(df_src):
-    """当日予想シートから事前確定ルール合致馬（1レース1頭厳選）を抽出"""
     if df_src is None or df_src.empty:
         return pd.DataFrame()
 
@@ -582,7 +576,7 @@ if df_today is not None and not df_today.empty and "日付" in df_today.columns:
     df_picks_latest = extract_selected_picks(df_today_latest)
 
 # ==========================================
-# 🚀 画面 1: 📊 ダッシュボード（デモ完全削除・実戦連動）
+# 🚀 画面 1: 📊 ダッシュボード（アイコン絵文字タブ対応）
 # ==========================================
 if menu == "📊 ダッシュボード":
     col_h_left, col_h_right = st.columns([7, 3])
@@ -607,7 +601,7 @@ if menu == "📊 ダッシュボード":
                 st.cache_data.clear()
                 st.rerun()
 
-    # 実戦収支の集計（デモデータは完全排除し、日次収支シートのみから計算）
+    # 実戦収支の集計
     df_daily_calc = pd.DataFrame()
     if df_daily_log is not None and not df_daily_log.empty:
         df_daily_calc = df_daily_log.copy()
@@ -618,7 +612,6 @@ if menu == "📊 ダッシュボード":
                 ).fillna(0)
 
     def get_real_venue_stats(venue_name):
-        """スプレッドシート『日次収支』の実戦記録のみを集計"""
         if df_daily_calc.empty:
             return 0.0, 0.0, 0, 0, 0, 0, False
 
@@ -642,26 +635,18 @@ if menu == "📊 ダッシュボード":
             return roi, hit_r, hits, races, inv, ret, True
         return 0.0, 0.0, 0, 0, 0, 0, False
 
-    # 修正前:
-# venue_list = ["総合", "大井", "川崎", "船橋", "浦和", "佐賀"]
-# v_tabs = st.tabs([f"📍 {v}" for v in venue_list])
-# for idx_v, v_name in enumerate(venue_list):
+    # 🌟 各会場ごとのアイコン絵文字付きタブ定義
+    venue_tabs = [
+        ("🌐 総合", "総合"),
+        ("🌃 大井", "大井"),
+        ("🐎 川崎", "川崎"),
+        ("⚓ 船橋", "船橋"),
+        ("🌸 浦和", "浦和"),
+        ("🔥 佐賀", "佐賀"),
+    ]
+    v_tabs = st.tabs([label for label, _ in venue_tabs])
 
-# 修正後:
-venue_tabs = [
-    ("🌐 総合", "総合"),
-    ("🌃 大井", "大井"),
-    ("🐎 川崎", "川崎"),
-    ("⚓ 船橋", "船橋"),
-    ("🌸 浦和", "浦和"),
-    ("🔥 佐賀", "佐賀"),
-]
-v_tabs = st.tabs([label for label, _ in venue_tabs])
-
-for idx_v, (v_label, v_name) in enumerate(venue_tabs):
-    with v_tabs[idx_v]:
-        u_roi, u_hit, u_hits, u_races, u_inv, u_ret, is_real = get_real_venue_stats(v_name)
-        # （以降の処理はそのまま）
+    for idx_v, (v_label, v_name) in enumerate(venue_tabs):
         with v_tabs[idx_v]:
             u_roi, u_hit, u_hits, u_races, u_inv, u_ret, is_real = get_real_venue_stats(v_name)
             c1, c2 = st.columns(2)
@@ -674,7 +659,7 @@ for idx_v, (v_label, v_name) in enumerate(venue_tabs):
                     st.markdown(
                         f"""
                         <div class="kpi-rich-card kpi-bar-amber">
-                            <div class="kpi-rich-title">👤 実戦通算収支【{v_name}】 <span style="color:#F59E0B; font-weight:600;">(日次収支連動)</span></div>
+                            <div class="kpi-rich-title">👤 実戦通算収支【{v_label}】 <span style="color:#F59E0B; font-weight:600;">(日次収支連動)</span></div>
                             <div class="kpi-main-metrics">
                                 <div>
                                     <span style="font-size:0.8rem; color:#CBD5E1;">実戦回収率</span><br>
@@ -697,7 +682,7 @@ for idx_v, (v_label, v_name) in enumerate(venue_tabs):
                     st.markdown(
                         f"""
                         <div class="kpi-rich-card kpi-bar-amber">
-                            <div class="kpi-rich-title">👤 実戦通算収支【{v_name}】 <span style="color:#94A3B8; font-weight:600;">(未入力)</span></div>
+                            <div class="kpi-rich-title">👤 実戦通算収支【{v_label}】 <span style="color:#94A3B8; font-weight:600;">(未入力)</span></div>
                             <div class="kpi-main-metrics">
                                 <div>
                                     <span style="font-size:0.8rem; color:#CBD5E1;">実戦回収率</span><br>
@@ -718,12 +703,11 @@ for idx_v, (v_label, v_name) in enumerate(venue_tabs):
                     )
 
             with c2:
-                # 的中・未的中カウントカード
                 misses = u_races - u_hits if is_real else 0
                 st.markdown(
                     f"""
                     <div class="kpi-rich-card kpi-bar-green">
-                        <div class="kpi-rich-title">🎯 的中内訳【{v_name}】</div>
+                        <div class="kpi-rich-title">🎯 的中内訳【{v_label}】</div>
                         <div class="kpi-main-metrics">
                             <div>
                                 <span style="font-size:0.8rem; color:#CBD5E1;">総購入レース数</span><br>
@@ -741,7 +725,7 @@ for idx_v, (v_label, v_name) in enumerate(venue_tabs):
                     </div>
                     """ if is_real else f"""
                     <div class="kpi-rich-card kpi-bar-green">
-                        <div class="kpi-rich-title">🎯 的中内訳【{v_name}】</div>
+                        <div class="kpi-rich-title">🎯 的中内訳【{v_label}】</div>
                         <div class="kpi-main-metrics">
                             <div>
                                 <span style="font-size:0.8rem; color:#CBD5E1;">総購入レース数</span><br>
@@ -794,7 +778,7 @@ for idx_v, (v_label, v_name) in enumerate(venue_tabs):
 
     st.write("")
 
-    # 実戦回収率の推移グラフ（実データがある場合のみプロット、デモデータは完全排除）
+    # 実戦回収率の推移グラフ
     st.markdown(
         '<div style="font-size:1.1rem; font-weight:700; color:#FFFFFF; margin-bottom:8px;">📈 実戦 累積回収率推移</div>',
         unsafe_allow_html=True,
