@@ -642,10 +642,26 @@ if menu == "📊 ダッシュボード":
             return roi, hit_r, hits, races, inv, ret, True
         return 0.0, 0.0, 0, 0, 0, 0, False
 
-    venue_list = ["総合", "大井", "川崎", "船橋", "浦和", "佐賀"]
-    v_tabs = st.tabs([f"📍 {v}" for v in venue_list])
+    # 修正前:
+# venue_list = ["総合", "大井", "川崎", "船橋", "浦和", "佐賀"]
+# v_tabs = st.tabs([f"📍 {v}" for v in venue_list])
+# for idx_v, v_name in enumerate(venue_list):
 
-    for idx_v, v_name in enumerate(venue_list):
+# 修正後:
+venue_tabs = [
+    ("🌐 総合", "総合"),
+    ("🌃 大井", "大井"),
+    ("🐎 川崎", "川崎"),
+    ("⚓ 船橋", "船橋"),
+    ("🌸 浦和", "浦和"),
+    ("🔥 佐賀", "佐賀"),
+]
+v_tabs = st.tabs([label for label, _ in venue_tabs])
+
+for idx_v, (v_label, v_name) in enumerate(venue_tabs):
+    with v_tabs[idx_v]:
+        u_roi, u_hit, u_hits, u_races, u_inv, u_ret, is_real = get_real_venue_stats(v_name)
+        # （以降の処理はそのまま）
         with v_tabs[idx_v]:
             u_roi, u_hit, u_hits, u_races, u_inv, u_ret, is_real = get_real_venue_stats(v_name)
             c1, c2 = st.columns(2)
