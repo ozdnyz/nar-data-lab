@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 import os
 import re
@@ -356,29 +356,6 @@ st.markdown(
         border-radius: 6px;
         display: inline-block;
         margin-bottom: 10px;
-    }
-
-    /* 🌟 見送り理由 ＆ 買い転換条件ボックス */
-    .status-badge-skip-box {
-        background: rgba(21, 26, 36, 0.95) !important;
-        border: 1px solid #2D3548 !important;
-        border-left: 4px solid #F59E0B !important;
-        border-radius: 8px !important;
-        padding: 8px 12px !important;
-        margin-bottom: 10px !important;
-    }
-    .skip-reason-line {
-        color: #CBD5E1 !important;
-        font-size: 0.88rem !important;
-        font-weight: 600 !important;
-    }
-    .skip-buy-condition {
-        color: #FBBF24 !important;
-        font-size: 0.84rem !important;
-        font-weight: 700 !important;
-        margin-top: 5px !important;
-        padding-top: 5px !important;
-        border-top: 1px dashed #2D3548 !important;
     }
 
     @media screen and (max-width: 768px) {
@@ -807,7 +784,7 @@ if menu == "📊 ダッシュボード":
 
     st.write("")
 
-    # 🌟 完全復活：回収率推移グラフ ＆ 期間・単位切り替えセレクトボックス
+    # 🌟 回収率推移グラフ ＆ 期間・単位切り替えセレクトボックス
     col_chart_title, col_chart_select = st.columns([6, 4])
     with col_chart_title:
         st.markdown('<div style="font-size:1.1rem; font-weight:700; color:#FFFFFF; margin-bottom:4px;">回収率推移</div>', unsafe_allow_html=True)
@@ -964,7 +941,6 @@ elif menu == "🎯 厳選勝負レース":
     else:
         st.info("現在、事前確定ルールに合致する勝負レースはありません。")
 
-    # 🌟 見送り監視リストの完全復活
     if df_skip is not None and not df_skip.empty:
         st.markdown("<div style='margin-top:1.5rem;'></div>", unsafe_allow_html=True)
         with st.expander("✋ 本日の見送りレース一覧（直前オッズ変動による買い転換チェック）", expanded=False):
@@ -1071,12 +1047,10 @@ elif menu == "👑 Jpn重賞専用予想":
             """
             <div class="race-card" style="border: 1px dashed #F59E0B; margin-top: 1rem;">
                 <div class="race-header">
-                    <span class="race-name" style="color:#FBBF24;">🚧 ダートグレード（Jpn1 / Jpn2 / Jpn3）専用ロジック 準備中枠</span>
-                    <span class="race-badge">Jpn Special</span>
+                    <span class="race-name" style="color:#FBBF24;">🚧 ダートグレード（Jpn1 / Jpn2 / Jpn3）専用枠</span>
                 </div>
                 <div style="font-size:0.92rem; color:#CBD5E1; line-height:1.7;">
-                    ・スプレッドシートに「<b>Jpn予想</b>」シートが追加されると、自動的にこの画面へJpn1〜Jpn3の専用買い目が表示されます。<br>
-                    ・交流重賞特有の「JRA所属馬の地方深い砂への適性」「地方所属馬の食い込み条件（内枠・先行バイアス）」を今後ここへ統合可能です。
+                    スプレッドシートに「Jpn予想」シートが追加されると、自動的にここへJpn1〜Jpn3の専用買い目が表示されます。
                 </div>
             </div>
             """,
@@ -1084,7 +1058,7 @@ elif menu == "👑 Jpn重賞専用予想":
         )
 
 # ==========================================
-# 🏇 画面 5: 全レース出馬表（リッチHTMLテーブル完全復活！）
+# 🏇 画面 5: 全レース出馬表（リッチHTMLテーブル完全版）
 # ==========================================
 elif menu == "🏇 全レース出馬表":
     st.markdown(f'<div class="main-title">全レース出馬表 ＆ AI評価印 ({latest_date_str or "最新"})</div>', unsafe_allow_html=True)
@@ -1126,7 +1100,6 @@ elif menu == "🏇 全レース出馬表":
                                 unsafe_allow_html=True,
                             )
 
-                        # 🌟 完全復活：印の色分け・リッチHTMLテーブル描画
                         disp_cols = ["馬番", "評価", "馬名", "騎手", "単勝オッズ", "人気", "RL", "CL", "AIスコア", rule_col]
                         if "印" in sub_df.columns and "評価" not in sub_df.columns:
                             sub_df = sub_df.rename(columns={"印": "評価"})
@@ -1256,13 +1229,16 @@ elif menu == "💰 収支入力・管理":
                     st.error(f"保存エラー: {e}")
 
 # ==========================================
-# 💻 画面 7: ターミナル操作マニュアル（リッチステップガイド完全復活！）
+# 💻 画面 7: ターミナル操作マニュアル（前日予想枠を完全復活！）
 # ==========================================
 elif menu == "💻 ターミナル操作マニュアル":
     st.markdown('<div class="main-title">💻 ターミナル操作マニュアル</div>', unsafe_allow_html=True)
     st.markdown('<div class="last-update">各枠右上のコピーボタンを押してChromebookのターミナルに貼り付けてください</div>', unsafe_allow_html=True)
 
-    # 🌟 完全復活：やることリスト・ビジュアルカード
+    # 明日の日付を自動計算（コード例用）
+    tomorrow_str = (datetime.now() + timedelta(days=1)).strftime("%Y%m%d")
+
+    # 運用サイクルビジュアルカード
     st.markdown(
         """
     <div style="background:#1C2230; border:1px solid #F59E0B; border-radius:12px; padding:1.1rem; margin-bottom:1.5rem;">
@@ -1271,10 +1247,10 @@ elif menu == "💻 ターミナル操作マニュアル":
         </h4>
         <div style="background:#151A24; border:1px solid #262F42; border-radius:10px; padding:0.9rem 1rem; margin-bottom:0.7rem;">
             <div style="display:flex; align-items:center; gap:8px; font-weight:700; color:#FFFFFF; margin-bottom:0.3rem; font-size:0.95rem;">
-                <span style="background:#D97706; color:white; font-size:0.7rem; font-weight:700; padding:2px 6px; border-radius:999px;">STEP 1</span> 朝・前日の予想 ＆ レジまぐ投稿
+                <span style="background:#D97706; color:white; font-size:0.7rem; font-weight:700; padding:2px 6px; border-radius:999px;">STEP 1</span> 予想実行 ＆ レジまぐ投稿
             </div>
             <div style="font-size:0.85rem; color:#CBD5E1;">
-                下記 <b>1. 予想実行コマンド</b> を実行 ➔ アプリの「📝 レジまぐ投稿原稿」をコピーして投稿。
+                当日の朝、または前日夜に下記コマンドを実行 ➔ アプリの「📝 レジまぐ投稿原稿」をコピーして投稿。
             </div>
         </div>
         <div style="background:#151A24; border:1px solid #262F42; border-radius:10px; padding:0.9rem 1rem; margin-bottom:0.7rem;">
@@ -1282,7 +1258,7 @@ elif menu == "💻 ターミナル操作マニュアル":
                 <span style="background:#D97706; color:white; font-size:0.7rem; font-weight:700; padding:2px 6px; border-radius:999px;">STEP 2</span> ナイター終了後の結果自動回収（夜 21:00以降）
             </div>
             <div style="font-size:0.85rem; color:#CBD5E1;">
-                下記 <b>2. 自動結果回収コマンド（result.py）</b> を実行。確定着順・配当がスプレッドシートへ自動保存されます。
+                下記 <b>3. 自動結果回収コマンド（result.py）</b> を実行。確定着順・配当がスプレッドシートへ自動保存されます。
             </div>
         </div>
         <div style="background:#151A24; border:1px solid #262F42; border-radius:10px; padding:0.9rem 1rem; margin-bottom:0;">
@@ -1298,45 +1274,62 @@ elif menu == "💻 ターミナル操作マニュアル":
         unsafe_allow_html=True,
     )
 
+    # 1. 当日予想
     st.markdown(
         """
     <div style="background:#151A24; border:1px solid #262F42; border-radius:12px; padding:1.1rem; margin-bottom:1.2rem;">
-        <h4 style="color:#FFFFFF; margin-top:0; font-size:1rem;">⚡ 1. 予想手動実行（事前確定スクリーニング ＆ 原稿生成）</h4>
+        <h4 style="color:#FFFFFF; margin-top:0; font-size:1rem;">⚡ 1. 当日（今日）の予想実行 ＆ 原稿生成</h4>
     """,
         unsafe_allow_html=True,
     )
     st.code("~/keiba_env/bin/python ~/nar_system/publish_today.py", language="bash")
-    st.caption("※前日の夜に翌日分を判定する場合は末尾に日付8桁（例: `publish_today.py 20261016`）")
+    st.caption("※本日のレース全頭をスクレイピング・指数計算し、勝負レースを抽出します")
     st.markdown("</div>", unsafe_allow_html=True)
 
+    # 2. 前日夜の予想（完全復活！）
     st.markdown(
-        """
-    <div style="background:#151A24; border:1px solid #262F42; border-radius:12px; padding:1.1rem; margin-bottom:1.2rem;">
-        <h4 style="color:#FFFFFF; margin-top:0; font-size:1rem;">🏁 2. 【夜21:00以降】AI自動結果回収 ＆ 日次収支自動集計</h4>
-    """,
-        unsafe_allow_html=True,
-    )
-    st.code("~/keiba_env/bin/python ~/nar_system/result.py", language="bash")
-    st.caption("※着順と単勝配当を自動取得し、シートへAI実績を自動保存します")
-    st.markdown("</div>", unsafe_allow_html=True)
-
-    st.markdown(
-        """
+        f"""
     <div style="background:#151A24; border:1px solid #F59E0B; border-left:5px solid #F59E0B; border-radius:12px; padding:1.1rem; margin-bottom:1.2rem;">
-        <h4 style="color:#FBBF24; margin-top:0; font-size:1.05rem;">🏖️ 3. 【週1回推奨】砂の全面入れ替え・コース改修・枠順バイアス異常チェック</h4>
-        <div style="font-size:0.88rem; color:#E2E8F0; margin-bottom:0.8rem; line-height:1.6;">
-            各競馬場公式サイトのニュース告知と直近の枠順バイアス（内枠・外枠の勝率乖離）を一括診断します。
+        <h4 style="color:#FBBF24; margin-top:0; font-size:1.05rem;">🌙 2. 前日夜に「明日」の予想実行 ＆ 原稿生成（日付8桁指定）</h4>
+        <div style="font-size:0.88rem; color:#CBD5E1; margin-bottom:0.8rem; line-height:1.6;">
+            前日の夕方〜夜に出馬表が確定した段階で、末尾に明日の日付（8桁）を付けて実行すると、<b>明日のレース判定とレジまぐ原稿を前夜のうちに作成</b>できます。
         </div>
     """,
         unsafe_allow_html=True,
     )
-    st.code("~/keiba_env/bin/python ~/nar_system/check_sand_bias.py", language="bash")
+    st.code(f"~/keiba_env/bin/python ~/nar_system/publish_today.py {tomorrow_str}", language="bash")
+    st.caption(f"※例: 明日（{tomorrow_str}）の予想を今夜出したい場合は上記コマンドをそのまま実行")
     st.markdown("</div>", unsafe_allow_html=True)
 
+    # 3. 夜の結果回収
     st.markdown(
         """
     <div style="background:#151A24; border:1px solid #262F42; border-radius:12px; padding:1.1rem; margin-bottom:1.2rem;">
-        <h4 style="color:#FFFFFF; margin-top:0; font-size:1rem;">🧹 4. メモリ解放 ＆ 停止コマンド（緊急用）</h4>
+        <h4 style="color:#FFFFFF; margin-top:0; font-size:1rem;">🏁 3. 【夜21:00以降】AI自動結果回収 ＆ 日次収支自動集計</h4>
+    """,
+        unsafe_allow_html=True,
+    )
+    st.code("~/keiba_env/bin/python ~/nar_system/result.py", language="bash")
+    st.caption("※確定着順と配当を自動取得し、「日次収支」シートへAI実績を自動保存します")
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # 4. 砂入れ替え＆バイアス点検
+    st.markdown(
+        """
+    <div style="background:#151A24; border:1px solid #262F42; border-radius:12px; padding:1.1rem; margin-bottom:1.2rem;">
+        <h4 style="color:#FFFFFF; margin-top:0; font-size:1rem;">🏖️ 4. 【週1回推奨】砂の全面入れ替え・コース改修・枠順バイアス異常チェック</h4>
+    """,
+        unsafe_allow_html=True,
+    )
+    st.code("~/keiba_env/bin/python ~/nar_system/check_sand_bias.py", language="bash")
+    st.caption("※各競馬場公式サイトのニュース告知と直近の枠順バイアス（勝率乖離）を一括診断します")
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # 5. メモリ解放
+    st.markdown(
+        """
+    <div style="background:#151A24; border:1px solid #262F42; border-radius:12px; padding:1.1rem; margin-bottom:1.2rem;">
+        <h4 style="color:#FFFFFF; margin-top:0; font-size:1rem;">🧹 5. メモリ解放 ＆ 停止コマンド（緊急用）</h4>
     """,
         unsafe_allow_html=True,
     )
@@ -1344,7 +1337,7 @@ elif menu == "💻 ターミナル操作マニュアル":
     st.markdown("</div>", unsafe_allow_html=True)
 
 # ==========================================
-# 🗄️ 画面 8: 過去データ分析（確定バックテスト実績表）
+# 🗄️ 画面 8: 過去データ分析
 # ==========================================
 elif menu == "🗄️ 過去データ分析":
     st.markdown('<div class="main-title">オッズ非依存・事前確定ポートフォリオ検証実績（4.5年間）</div>', unsafe_allow_html=True)
