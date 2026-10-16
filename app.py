@@ -434,7 +434,6 @@ def load_sheet_data():
                 std_cols = ["日付", "会場", "AI投資額", "AI回収額", "AIレース数", "AI的中数", "ユーザー投資額", "ユーザー回収額", "ユーザーレース数", "ユーザー的中数"]
                 first_row = vals_d[0]
                 if "日付" not in first_row and re.match(r"^\d{4}[/-]\d{2}", str(vals_d[1][0])):
-                    # 見出しがズレていても安全に10列として読み込むフェイルセーフ
                     df_daily = pd.DataFrame(vals_d[1:], columns=std_cols[:len(vals_d[1])])
                 else:
                     df_daily = pd.DataFrame(vals_d[1:], columns=first_row[:len(vals_d[1])])
@@ -628,7 +627,6 @@ if menu == "📊 ダッシュボード":
         sub = df_daily_calc.copy()
         if "会場" in sub.columns:
             if venue_name == "総合":
-                # 会場別の行が存在する場合は二重計上を防ぐため「総合」行を除外して全会場を合算
                 non_total = sub[sub["会場"].astype(str).str.strip() != "総合"]
                 if not non_total.empty:
                     sub = non_total
@@ -1180,7 +1178,7 @@ elif menu == "🏇 全レース出馬表":
         st.info("スプレッドシート「当日予想」にデータがありません。")
 
 # ==========================================
-# 💰 画面 6: 収支入力・管理（白文字見出しで視認性完全改善！）
+# 💰 画面 6: 収支入力・管理
 # ==========================================
 elif menu == "💰 収支入力・管理":
     st.markdown('<div class="main-title">日次・会場別 実収支の記録</div>', unsafe_allow_html=True)
@@ -1354,18 +1352,39 @@ elif menu == "💻 ターミナル操作マニュアル":
     st.markdown("</div>", unsafe_allow_html=True)
 
 # ==========================================
-# 🗄️ 画面 8: 過去データ分析
+# 🗄️ 画面 8: 過去データ分析（S/A/Bランク付き）
 # ==========================================
 elif menu == "🗄️ 過去データ分析":
     st.markdown('<div class="main-title">オッズ非依存・事前確定ポートフォリオ検証実績（4.5年間）</div>', unsafe_allow_html=True)
-    st.markdown('<div class="last-update">出馬表確定時点で100%買い目が決まる全12ゾーンの確定バックテスト成績（1点1,000円換算）</div>', unsafe_allow_html=True)
+    st.markdown('<div class="last-update">出馬表確定時点で100%買い目が決まる全12ゾーンの確定バックテスト成績と推奨ランク格付け（1点1,000円換算）</div>', unsafe_allow_html=True)
 
     st.markdown(
         """
-        <div style="overflow-x: auto; border-radius: 8px; border: 1px solid #262F42; margin-top: 1rem;">
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:1rem;">
+            <div style="background:#151A24; border:1px solid #F59E0B; border-left:4px solid #F59E0B; border-radius:8px; padding:8px 14px; flex:1; min-width:200px;">
+                <span style="color:#FBBF24; font-weight:800; font-size:0.95rem;">👑 Sランク（特注勝負）</span><br>
+                <span style="color:#CBD5E1; font-size:0.8rem;">単勝回収率 130%超の最優先ゾーン</span>
+            </div>
+            <div style="background:#151A24; border:1px solid #10B981; border-left:4px solid #10B981; border-radius:8px; padding:8px 14px; flex:1; min-width:200px;">
+                <span style="color:#34D399; font-weight:800; font-size:0.95rem;">🔥 Aランク（主力勝負）</span><br>
+                <span style="color:#CBD5E1; font-size:0.8rem;">単勝回収率 120%前後の高期待値ゾーン</span>
+            </div>
+            <div style="background:#151A24; border:1px solid #38BDF8; border-left:4px solid #38BDF8; border-radius:8px; padding:8px 14px; flex:1; min-width:200px;">
+                <span style="color:#7DD3FC; font-weight:800; font-size:0.95rem;">⚡ Bランク（標準プラス）</span><br>
+                <span style="color:#CBD5E1; font-size:0.8rem;">単勝回収率 100%〜115%の安定黒字ゾーン</span>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown(
+        """
+        <div style="overflow-x: auto; border-radius: 8px; border: 1px solid #262F42; margin-top: 0.5rem;">
         <table style="width:100%; border-collapse: collapse; color: #F3F4F6; background-color: #151A24; font-size: 0.92rem;">
             <thead>
                 <tr style="background-color: #10141D; color: #FBBF24; border-bottom: 2px solid #262F42; text-align: left;">
+                    <th style="padding: 12px 14px; text-align:center;">ランク</th>
                     <th style="padding: 12px 14px;">会場・距離区分</th>
                     <th style="padding: 12px 14px;">事前確定条件（オッズ不問）</th>
                     <th style="padding: 12px 14px;">単勝回収率</th>
@@ -1374,15 +1393,78 @@ elif menu == "🗄️ 過去データ分析":
                 </tr>
             </thead>
             <tbody>
-                <tr style="border-bottom: 1px solid #262F42;"><td style="padding: 12px 14px; font-weight:700;">🌃 大井・短距離 (<=1200m)</td><td style="padding: 12px 14px;">印【▲】× RL 1〜2位 × 中枠(4-5)</td><td style="padding: 12px 14px; font-weight:700; color:#FBBF24;">132.8%</td><td style="padding: 12px 14px;">25.7% (複 52.8%)</td><td style="padding: 12px 14px; color:#10B981; font-weight:700;">+70,100円</td></tr>
-                <tr style="border-bottom: 1px solid #262F42;"><td style="padding: 12px 14px; font-weight:700;">🌃 大井・長距離 (>=1700m)</td><td style="padding: 12px 14px;">印【◎】× RL&CL 2位以内 × 外枠(6-8)</td><td style="padding: 12px 14px; font-weight:700; color:#FBBF24;">110.1%</td><td style="padding: 12px 14px;">36.7% (複 55.4%)</td><td style="padding: 12px 14px; color:#10B981; font-weight:700;">+14,100円</td></tr>
-                <tr style="border-bottom: 1px solid #262F42;"><td style="padding: 12px 14px; font-weight:700;">🐎 川崎・短距離 (<=1200m)</td><td style="padding: 12px 14px;">印【◯】× RL&CL 2位以内 × 全枠</td><td style="padding: 12px 14px; font-weight:700; color:#FBBF24;">122.1%</td><td style="padding: 12px 14px;">16.9% (複 50.6%)</td><td style="padding: 12px 14px; color:#10B981; font-weight:700;">+17,000円</td></tr>
-                <tr style="border-bottom: 1px solid #262F42;"><td style="padding: 12px 14px; font-weight:700;">🐎 川崎・長距離 (>=1700m)</td><td style="padding: 12px 14px;">印【◯】× CL 1〜2位 × 外枠(6-8)</td><td style="padding: 12px 14px; font-weight:700; color:#FBBF24;">103.2%</td><td style="padding: 12px 14px;">16.1% (複 53.2%)</td><td style="padding: 12px 14px; color:#10B981; font-weight:700;">+2,000円</td></tr>
-                <tr style="border-bottom: 1px solid #262F42;"><td style="padding: 12px 14px; font-weight:700;">⚓ 船橋・中距離 (1300-1600m)</td><td style="padding: 12px 14px;">印【◯】× CL 1〜2位 × 内枠(1-3)</td><td style="padding: 12px 14px; font-weight:700; color:#FBBF24;">187.8%</td><td style="padding: 12px 14px;">29.7% (複 56.8%)</td><td style="padding: 12px 14px; color:#10B981; font-weight:700;">+32,500円</td></tr>
-                <tr style="border-bottom: 1px solid #262F42;"><td style="padding: 12px 14px; font-weight:700;">⚓ 船橋・長距離 (>=1700m)</td><td style="padding: 12px 14px;">印【◯】× RL 1〜3位 × 内枠(1-3)</td><td style="padding: 12px 14px; font-weight:700; color:#FBBF24;">156.2%</td><td style="padding: 12px 14px;">38.5% (複 69.2%)</td><td style="padding: 12px 14px; color:#10B981; font-weight:700;">+29,200円</td></tr>
-                <tr style="border-bottom: 1px solid #262F42;"><td style="padding: 12px 14px; font-weight:700;">🌸 浦和・全距離合計 (短・中・長)</td><td style="padding: 12px 14px;">印【◯】× 上位適性・外枠バイアス</td><td style="padding: 12px 14px; font-weight:700; color:#FBBF24;">106.2%</td><td style="padding: 12px 14px;">23.5% (複 58.2%)</td><td style="padding: 12px 14px; color:#10B981; font-weight:700;">+57,000円</td></tr>
-                <tr style="border-bottom: 1px solid #262F42;"><td style="padding: 12px 14px; font-weight:700;">🔥 佐賀・全距離合計 (短・中・長)</td><td style="padding: 12px 14px;">内枠(1-3) × 印【▲/◯】× 実力適性上位</td><td style="padding: 12px 14px; font-weight:700; color:#FBBF24;">123.2%</td><td style="padding: 12px 14px;">30.5% (複 61.0%)</td><td style="padding: 12px 14px; color:#10B981; font-weight:700;">+43,400円</td></tr>
-                <tr style="background-color: #10141D; font-weight:800;"><td style="padding: 14px;">🌐 総合ポートフォリオ (1,658R)</td><td style="padding: 14px;">1日平均 2.01鞍 ／ 重複レース1点集約</td><td style="padding: 14px; color:#F59E0B; font-size:1.1rem;">115.3%</td><td style="padding: 14px;">25.6% (複 57.3%)</td><td style="padding: 14px; color:#10B981; font-size:1.1rem;">+252,900円</td></tr>
+                <tr style="border-bottom: 1px solid #262F42;">
+                    <td style="padding: 12px 14px; text-align:center;"><span style="background:rgba(245,158,11,0.2); border:1px solid #F59E0B; color:#FBBF24; font-weight:800; padding:3px 10px; border-radius:6px; font-size:0.82rem; white-space:nowrap;">👑 Sランク</span></td>
+                    <td style="padding: 12px 14px; font-weight:700;">🌃 大井・短距離 (<=1200m)</td>
+                    <td style="padding: 12px 14px;">印【▲】× RL 1〜2位 × 中枠(4-5)</td>
+                    <td style="padding: 12px 14px; font-weight:700; color:#FBBF24;">132.8%</td>
+                    <td style="padding: 12px 14px;">25.7% (複 52.8%)</td>
+                    <td style="padding: 12px 14px; color:#10B981; font-weight:700;">+70,100円</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #262F42;">
+                    <td style="padding: 12px 14px; text-align:center;"><span style="background:rgba(56,189,248,0.15); border:1px solid #38BDF8; color:#7DD3FC; font-weight:800; padding:3px 10px; border-radius:6px; font-size:0.82rem; white-space:nowrap;">⚡ Bランク</span></td>
+                    <td style="padding: 12px 14px; font-weight:700;">🌃 大井・長距離 (>=1700m)</td>
+                    <td style="padding: 12px 14px;">印【◎】× RL&CL 2位以内 × 外枠(6-8)</td>
+                    <td style="padding: 12px 14px; font-weight:700; color:#FBBF24;">110.1%</td>
+                    <td style="padding: 12px 14px;">36.7% (複 55.4%)</td>
+                    <td style="padding: 12px 14px; color:#10B981; font-weight:700;">+14,100円</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #262F42;">
+                    <td style="padding: 12px 14px; text-align:center;"><span style="background:rgba(16,185,129,0.2); border:1px solid #10B981; color:#34D399; font-weight:800; padding:3px 10px; border-radius:6px; font-size:0.82rem; white-space:nowrap;">🔥 Aランク</span></td>
+                    <td style="padding: 12px 14px; font-weight:700;">🐎 川崎・短距離 (<=1200m)</td>
+                    <td style="padding: 12px 14px;">印【◯】× RL&CL 2位以内 × 全枠</td>
+                    <td style="padding: 12px 14px; font-weight:700; color:#FBBF24;">122.1%</td>
+                    <td style="padding: 12px 14px;">16.9% (複 50.6%)</td>
+                    <td style="padding: 12px 14px; color:#10B981; font-weight:700;">+17,000円</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #262F42;">
+                    <td style="padding: 12px 14px; text-align:center;"><span style="background:rgba(56,189,248,0.15); border:1px solid #38BDF8; color:#7DD3FC; font-weight:800; padding:3px 10px; border-radius:6px; font-size:0.82rem; white-space:nowrap;">⚡ Bランク</span></td>
+                    <td style="padding: 12px 14px; font-weight:700;">🐎 川崎・長距離 (>=1700m)</td>
+                    <td style="padding: 12px 14px;">印【◯】× CL 1〜2位 × 外枠(6-8)</td>
+                    <td style="padding: 12px 14px; font-weight:700; color:#FBBF24;">103.2%</td>
+                    <td style="padding: 12px 14px;">16.1% (複 53.2%)</td>
+                    <td style="padding: 12px 14px; color:#10B981; font-weight:700;">+2,000円</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #262F42;">
+                    <td style="padding: 12px 14px; text-align:center;"><span style="background:rgba(245,158,11,0.2); border:1px solid #F59E0B; color:#FBBF24; font-weight:800; padding:3px 10px; border-radius:6px; font-size:0.82rem; white-space:nowrap;">👑 Sランク</span></td>
+                    <td style="padding: 12px 14px; font-weight:700;">⚓ 船橋・中距離 (1300-1600m)</td>
+                    <td style="padding: 12px 14px;">印【◯】× CL 1〜2位 × 内枠(1-3)</td>
+                    <td style="padding: 12px 14px; font-weight:700; color:#FBBF24;">187.8%</td>
+                    <td style="padding: 12px 14px;">29.7% (複 56.8%)</td>
+                    <td style="padding: 12px 14px; color:#10B981; font-weight:700;">+32,500円</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #262F42;">
+                    <td style="padding: 12px 14px; text-align:center;"><span style="background:rgba(245,158,11,0.2); border:1px solid #F59E0B; color:#FBBF24; font-weight:800; padding:3px 10px; border-radius:6px; font-size:0.82rem; white-space:nowrap;">👑 Sランク</span></td>
+                    <td style="padding: 12px 14px; font-weight:700;">⚓ 船橋・長距離 (>=1700m)</td>
+                    <td style="padding: 12px 14px;">印【◯】× RL 1〜3位 × 内枠(1-3)</td>
+                    <td style="padding: 12px 14px; font-weight:700; color:#FBBF24;">156.2%</td>
+                    <td style="padding: 12px 14px;">38.5% (複 69.2%)</td>
+                    <td style="padding: 12px 14px; color:#10B981; font-weight:700;">+29,200円</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #262F42;">
+                    <td style="padding: 12px 14px; text-align:center;"><span style="background:rgba(56,189,248,0.15); border:1px solid #38BDF8; color:#7DD3FC; font-weight:800; padding:3px 10px; border-radius:6px; font-size:0.82rem; white-space:nowrap;">⚡ Bランク</span></td>
+                    <td style="padding: 12px 14px; font-weight:700;">🌸 浦和・全距離合計 (短・中・長)</td>
+                    <td style="padding: 12px 14px;">印【◯】× 上位適性・外枠バイアス</td>
+                    <td style="padding: 12px 14px; font-weight:700; color:#FBBF24;">106.2%</td>
+                    <td style="padding: 12px 14px;">23.5% (複 58.2%)</td>
+                    <td style="padding: 12px 14px; color:#10B981; font-weight:700;">+57,000円</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #262F42;">
+                    <td style="padding: 12px 14px; text-align:center;"><span style="background:rgba(16,185,129,0.2); border:1px solid #10B981; color:#34D399; font-weight:800; padding:3px 10px; border-radius:6px; font-size:0.82rem; white-space:nowrap;">🔥 Aランク</span></td>
+                    <td style="padding: 12px 14px; font-weight:700;">🔥 佐賀・全距離合計 (短・中・長)</td>
+                    <td style="padding: 12px 14px;">内枠(1-3) × 印【▲/◯】× 実力適性上位</td>
+                    <td style="padding: 12px 14px; font-weight:700; color:#FBBF24;">123.2%</td>
+                    <td style="padding: 12px 14px;">30.5% (複 61.0%)</td>
+                    <td style="padding: 12px 14px; color:#10B981; font-weight:700;">+43,400円</td>
+                </tr>
+                <tr style="background-color: #10141D; font-weight:800;">
+                    <td style="padding: 14px; text-align:center; color:#F59E0B;">ALL</td>
+                    <td style="padding: 14px;">🌐 総合ポートフォリオ (1,658R)</td>
+                    <td style="padding: 14px;">1日平均 2.01鞍 ／ 重複レース1点集約</td>
+                    <td style="padding: 14px; color:#F59E0B; font-size:1.1rem;">115.3%</td>
+                    <td style="padding: 14px;">25.6% (複 57.3%)</td>
+                    <td style="padding: 14px; color:#10B981; font-size:1.1rem;">+252,900円</td>
+                </tr>
             </tbody>
         </table>
         </div>
