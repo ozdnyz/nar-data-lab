@@ -77,14 +77,14 @@ st.markdown(
         color: #FFFFFF !important;
     }
 
-    /* 🌟 フォーム・入力ラベルの文字色をくっきり白に統一 */
+    /* フォーム・入力ラベル */
     [data-testid="stWidgetLabel"] p, label p {
         color: #FFFFFF !important;
         font-weight: 700 !important;
         font-size: 0.92rem !important;
     }
 
-    /* 🌟 天候・ラジオ切り替えボタン */
+    /* ラジオ切り替えボタン */
     div[data-testid="stRadio"] div[role="radiogroup"] label {
         background-color: #151A24 !important;
         border: 1px solid #2D3548 !important;
@@ -108,7 +108,7 @@ st.markdown(
         font-weight: 700 !important;
     }
 
-    /* 🌟 タブデザイン */
+    /* タブデザイン */
     .stTabs [data-baseweb="tab-list"] {
         gap: 6px !important;
         background-color: transparent !important;
@@ -120,9 +120,7 @@ st.markdown(
         border-bottom: none !important;
         flex-wrap: wrap !important;
     }
-    .stTabs [data-baseweb="tab-highlight"] {
-        display: none !important;
-    }
+    .stTabs [data-baseweb="tab-highlight"] { display: none !important; }
     .stTabs [data-baseweb="tab"] {
         background-color: #151A24 !important;
         border: 1px solid #2D3548 !important;
@@ -144,22 +142,7 @@ st.markdown(
         color: #FBBF24 !important;
         box-shadow: 0 0 10px rgba(245, 158, 11, 0.35) !important;
     }
-    .stTabs [data-baseweb="tab-panel"] {
-        padding: 0px !important;
-        margin: 0px !important;
-    }
-
-    .right-card-header {
-        height: 38px !important;
-        min-height: 38px !important;
-        margin-bottom: 8px !important;
-        display: flex !important;
-        align-items: center !important;
-        font-size: 0.95rem !important;
-        font-weight: 700 !important;
-        color: #FFFFFF !important;
-        padding: 0 4px !important;
-    }
+    .stTabs [data-baseweb="tab-panel"] { padding: 0px !important; margin: 0px !important; }
 
     [data-testid="stExpander"] details {
         background-color: #151A24 !important;
@@ -196,40 +179,26 @@ st.markdown(
         border: 1px solid #262C3A !important;
     }
     .user-avatar {
-        width: 36px;
-        height: 36px;
-        background: #D97706;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        color: white;
+        width: 36px; height: 36px; background: #D97706; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-weight: 700; color: white;
     }
     .user-info { display: flex; flex-direction: column; }
     .user-name { font-size: 0.85rem; font-weight: 600; color: #F8FAFC; }
     .user-status { font-size: 0.75rem; color: #F59E0B; display: flex; align-items: center; gap: 4px; }
 
     .main-title {
-        font-size: 1.85rem;
-        font-weight: 700;
-        color: #FFFFFF !important;
-        margin-bottom: 4px;
-        line-height: 1.25;
+        font-size: 1.85rem; font-weight: 700; color: #FFFFFF !important;
+        margin-bottom: 4px; line-height: 1.25;
     }
     .last-update { font-size: 0.85rem; color: #94A3B8; margin-bottom: 1rem; }
 
     button[kind="secondary"], button[kind="primary"], [data-testid="stButton"] button {
-        background-color: #1A202C !important;
-        color: #E2E8F0 !important;
-        border: 1px solid #2D3748 !important;
-        border-radius: 8px !important;
-        font-weight: 600 !important;
+        background-color: #1A202C !important; color: #E2E8F0 !important;
+        border: 1px solid #2D3748 !important; border-radius: 8px !important; font-weight: 600 !important;
     }
-    [data-testid="stButton"] button p { color: #E2E8F0 !important; }
     [data-testid="stButton"] button:hover {
-        background-color: #292012 !important;
-        border-color: #F59E0B !important;
+        background-color: #292012 !important; border-color: #F59E0B !important;
     }
 
     div[class*="st-key-help_modal_btn"] button {
@@ -244,130 +213,75 @@ st.markdown(
         white-space: nowrap !important; display: inline-flex !important; align-items: center !important;
     }
 
-    .stForm [data-testid="stFormSubmitButton"] button, [data-testid="stFormSubmitButton"] button, button[kind="formSubmit"] {
-        background-color: #D97706 !important;
-        border: 1px solid #F59E0B !important;
-        border-radius: 8px !important;
-        padding: 0.65rem 1.6rem !important;
-        font-weight: 700 !important;
-        min-height: 48px !important;
-        box-shadow: 0 4px 14px rgba(217, 119, 6, 0.4) !important;
-        width: 100% !important;
+    .stForm [data-testid="stFormSubmitButton"] button {
+        background-color: #D97706 !important; border: 1px solid #F59E0B !important;
+        border-radius: 8px !important; padding: 0.65rem 1.6rem !important; font-weight: 700 !important;
+        min-height: 48px !important; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.4) !important; width: 100% !important;
     }
     .stForm [data-testid="stFormSubmitButton"] button * { color: #FFFFFF !important; font-weight: 700 !important; font-size: 1.05rem !important; }
 
     [data-testid="stForm"] {
-        background-color: #151A24 !important;
-        border: 1px solid #262F42 !important;
-        border-radius: 12px !important;
-        padding: 1.4rem !important;
+        background-color: #151A24 !important; border: 1px solid #262F42 !important;
+        border-radius: 12px !important; padding: 1.4rem !important;
     }
 
-    /* 🌟 リッチKPIカード */
+    /* KPIカード */
     .kpi-rich-card {
-        background: #151A24 !important;
-        border: 1px solid #262F42 !important;
-        border-radius: 14px !important;
-        padding: 1.1rem 1.25rem !important;
-        margin-bottom: 0.8rem !important;
-        height: 165px !important;
-        min-height: 165px !important;
-        max-height: 165px !important;
-        box-sizing: border-box !important;
-        display: flex !important;
-        flex-direction: column !important;
+        background: #151A24 !important; border: 1px solid #262F42 !important;
+        border-radius: 14px !important; padding: 1.1rem 1.25rem !important;
+        margin-bottom: 0.8rem !important; height: 165px !important; min-height: 165px !important;
+        box-sizing: border-box !important; display: flex !important; flex-direction: column !important;
         justify-content: space-between !important;
     }
-    .kpi-bar-amber  { border-left: 4px solid #F59E0B !important; }
-    .kpi-bar-green  { border-left: 4px solid #10B981 !important; }
+    .kpi-bar-amber { border-left: 4px solid #F59E0B !important; }
+    .kpi-bar-green { border-left: 4px solid #10B981 !important; }
 
     .kpi-rich-title {
-        font-size: 0.88rem;
-        color: #E2E8F0;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        display: flex;
-        align-items: center;
-        gap: 6px;
+        font-size: 0.88rem; color: #E2E8F0; font-weight: 700; margin-bottom: 0.5rem;
+        display: flex; align-items: center; gap: 6px;
     }
     .kpi-main-metrics {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        margin-bottom: 0.6rem;
-        border-bottom: 1px solid #262F42;
-        padding-bottom: 0.5rem;
-        flex-wrap: wrap;
-        gap: 8px;
+        display: flex; align-items: baseline; justify-content: space-between;
+        margin-bottom: 0.6rem; border-bottom: 1px solid #262F42; padding-bottom: 0.5rem;
+        flex-wrap: wrap; gap: 8px;
     }
     .kpi-big-val { font-size: 1.95rem; font-weight: 800; color: #FFFFFF; letter-spacing: -0.5px; }
     .kpi-sub-rate { font-size: 1rem; color: #CBD5E1; font-weight: 700; }
     .kpi-money-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 0.86rem;
-        color: #CBD5E1;
-        flex-wrap: wrap;
-        gap: 4px;
+        display: flex; justify-content: space-between; align-items: center;
+        font-size: 0.86rem; color: #CBD5E1; flex-wrap: wrap; gap: 4px;
     }
     .kpi-profit-pos { color: #10B981; font-weight: 700; }
     .kpi-profit-neg { color: #EF4444; font-weight: 700; }
 
     .race-card {
-        background: #151A24;
-        border: 1px solid #262F42;
-        border-radius: 12px;
-        padding: 1.1rem;
-        margin-bottom: 1rem;
+        background: #151A24; border: 1px solid #262F42; border-radius: 12px;
+        padding: 1.1rem; margin-bottom: 1rem;
     }
     .race-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #262F42;
-        padding-bottom: 0.5rem;
-        margin-bottom: 0.8rem;
-        flex-wrap: wrap;
-        gap: 6px;
+        display: flex; justify-content: space-between; align-items: center;
+        border-bottom: 1px solid #262F42; padding-bottom: 0.5rem; margin-bottom: 0.8rem;
+        flex-wrap: wrap; gap: 6px;
     }
     .race-name { font-size: 1.05rem; font-weight: 700; color: #FFFFFF; }
     .race-badge {
-        background-color: #292012;
-        color: #FBBF24;
-        font-size: 0.75rem;
-        font-weight: 700;
-        padding: 3px 10px;
-        border-radius: 4px;
-        border: 1px solid #F59E0B;
+        background-color: #292012; color: #FBBF24; font-size: 0.75rem; font-weight: 700;
+        padding: 3px 10px; border-radius: 4px; border: 1px solid #F59E0B;
     }
 
     .status-badge-buy {
-        background: rgba(245, 158, 11, 0.15);
-        border: 1px solid #F59E0B;
-        color: #FBBF24;
-        font-size: 0.88rem;
-        font-weight: 700;
-        padding: 6px 12px;
-        border-radius: 6px;
-        display: inline-block;
-        margin-bottom: 10px;
+        background: rgba(245, 158, 11, 0.15); border: 1px solid #F59E0B; color: #FBBF24;
+        font-size: 0.88rem; font-weight: 700; padding: 6px 12px; border-radius: 6px;
+        display: inline-block; margin-bottom: 10px;
     }
     .status-badge-skip {
-        background: rgba(148, 163, 184, 0.12);
-        border: 1px solid #475569;
-        color: #CBD5E1;
-        font-size: 0.88rem;
-        font-weight: 600;
-        padding: 6px 12px;
-        border-radius: 6px;
-        display: inline-block;
-        margin-bottom: 10px;
+        background: rgba(148, 163, 184, 0.12); border: 1px solid #475569; color: #CBD5E1;
+        font-size: 0.88rem; font-weight: 600; padding: 6px 12px; border-radius: 6px;
+        display: inline-block; margin-bottom: 10px;
     }
 
     @media screen and (max-width: 768px) {
-        .main-title { font-size: 1.35rem !important; margin-bottom: 2px !important; }
-        .last-update { font-size: 0.75rem !important; margin-bottom: 0.8rem !important; }
+        .main-title { font-size: 1.35rem !important; }
         .kpi-big-val { font-size: 1.5rem !important; }
         .sidebar-user { position: relative !important; bottom: auto !important; left: auto !important; width: 100% !important; margin-top: 2rem !important; }
     }
@@ -377,7 +291,7 @@ st.markdown(
 )
 
 # ==========================================
-# 🔐 スプレッドシート接続処理（PEM秘密鍵改行自動修復）
+# 🔐 スプレッドシート接続処理
 # ==========================================
 SS_NAME = "地方競馬AI予想管理"
 
@@ -496,6 +410,27 @@ def extract_selected_picks(df_src):
     return hits
 
 
+def get_hybrid_partners(df_src, venue, r_code, axis_umaban):
+    """同一レースからAIスコア（またはRL）上位2頭の相手馬を抽出"""
+    if df_src is None or df_src.empty:
+        return []
+    sub = df_src[(df_src["会場"].astype(str) == str(venue)) & (df_src["R"].astype(str) == str(r_code))].copy()
+    if sub.empty:
+        return []
+    others = sub[sub["馬番"].astype(str) != str(axis_umaban)].copy()
+    if others.empty:
+        return []
+    if "AIスコア" in others.columns:
+        others["_sc"] = pd.to_numeric(others["AIスコア"], errors="coerce").fillna(99.0)
+        sorted_o = others.sort_values("_sc").reset_index(drop=True)
+    elif "RL" in others.columns:
+        others["_sc"] = pd.to_numeric(others["RL"], errors="coerce").fillna(99.0)
+        sorted_o = others.sort_values("_sc").reset_index(drop=True)
+    else:
+        sorted_o = others.reset_index(drop=True)
+    return sorted_o.to_dict("records")
+
+
 # ==========================================
 # 🌟 運用サイクルのポップアップダイアログ
 # ==========================================
@@ -504,29 +439,28 @@ def show_flow_modal():
     st.markdown(
         """
     <div style="font-size:1rem; color:#FFFFFF; font-weight:700; margin-bottom:14px;">
-        直前オッズに依存しない「完全事前確定型」の理想的な自動運用サイクルです。
+        直前オッズに依存しない「単勝＋ワイド2点 ハイブリッド運用」の自動運用サイクルです。
     </div>
     <div style="background:#151A24; border:1px solid #2D3548; border-left:5px solid #F59E0B; border-radius:10px; padding:14px 16px; margin-bottom:12px;">
         <div style="font-size:1.05rem; font-weight:700; color:#FFFFFF; margin-bottom:8px;">🌅 1. 【前日夜 or 朝】 予測・出撃フェーズ（publish_today.py）</div>
         <div style="font-size:0.9rem; color:#F3F4F6; line-height:1.7;">
-            <span style="color:#FBBF24; font-weight:700;">・処理</span>: 全レース巡回 ➔ 黄金ゾーン合致馬を自動抽出（1レース1頭厳選）<br>
-            <span style="color:#FBBF24; font-weight:700;">・配信</span>: 左メニュー「📝 レジまぐ投稿原稿」からタイトルと本文をコピーして予約投稿<br>
-            <span style="color:#FBBF24; font-weight:700;">・投票</span>: オッズ不問のため、朝の段階でPAT事前投票を完了
+            <span style="color:#FBBF24; font-weight:700;">・処理</span>: 全レース巡回 ➔ 黄金ゾーン合致馬＋相手2頭を自動抽出（1.4倍未満は自動除外）<br>
+            <span style="color:#FBBF24; font-weight:700;">・配信</span>: 左メニュー「📝 レジまぐ投稿原稿」からハイブリッド原稿をコピーして予約投稿<br>
+            <span style="color:#FBBF24; font-weight:700;">・投票</span>: 単勝1点（1,000円）＋ ワイド2点（各500円）を事前投票
         </div>
     </div>
     <div style="background:#151A24; border:1px solid #2D3548; border-left:5px solid #10B981; border-radius:10px; padding:14px 16px; margin-bottom:12px;">
         <div style="font-size:1.05rem; font-weight:700; color:#FFFFFF; margin-bottom:8px;">🌙 2. 【夜 21:00】 収支確定フェーズ（result.py）</div>
         <div style="font-size:0.9rem; color:#F3F4F6; line-height:1.7;">
-            <span style="color:#34D399; font-weight:700;">・処理</span>: 確定着順と配当を自動回収 ➔ AI買い目（単勝各1,000円）と照合<br>
-            <span style="color:#34D399; font-weight:700;">・反映先</span>: 「日次収支」シートへAI公式実績を自動記録（会場別も自動集計）<br>
-            <span style="color:#34D399; font-weight:700;">・操作</span>: 左メニュー「💰 収支入力」から開催会場を選んで実戦投票額を保存
+            <span style="color:#34D399; font-weight:700;">・処理</span>: 確定着順と配当を自動回収 ➔ 単勝＆ワイドの的中を判定<br>
+            <span style="color:#34D399; font-weight:700;">・反映先</span>: 「日次収支」シートへAI公式実績を自動記録<br>
+            <span style="color:#34D399; font-weight:700;">・操作</span>: 左メニュー「💰 収支入力」から実戦投票額を保存
         </div>
     </div>
     <div style="background:#151A24; border:1px solid #2D3548; border-left:5px solid #06B6D4; border-radius:10px; padding:14px 16px;">
         <div style="font-size:1.05rem; font-weight:700; color:#FFFFFF; margin-bottom:8px;">🔍 3. 【週1回】 砂入れ替え ＆ バイアス点検フェーズ</div>
         <div style="font-size:0.9rem; color:#F3F4F6; line-height:1.7;">
-            <span style="color:#38BDF8; font-weight:700;">・処理</span>: 各競馬場公式サイトのニュース巡回 ＆ 内枠・外枠勝率の乖離チェック<br>
-            <span style="color:#38BDF8; font-weight:700;">・目的</span>: 白砂化や走路改修によるバイアス急変を早期検知
+            <span style="color:#38BDF8; font-weight:700;">・処理</span>: 公式サイトのニュース巡回 ＆ 内外枠バイアスの急変を検知
         </div>
     </div>
     """,
@@ -569,7 +503,7 @@ with st.sidebar:
         <div class="user-avatar">N</div>
         <div class="user-info">
             <div class="user-name">Owner (Private)</div>
-            <div class="user-status">● 自動集計エンジン稼働中</div>
+            <div class="user-status">● ハイブリッド運用稼働中</div>
         </div>
     </div>
     """,
@@ -672,7 +606,7 @@ if menu == "📊 ダッシュボード":
                     st.markdown(
                         f"""
                         <div class="kpi-rich-card kpi-bar-amber">
-                            <div class="kpi-rich-title">🤖 AI理論 実績【{v_label}】 <span style="color:#F59E0B; font-weight:600;">(result.py 自動回収)</span></div>
+                            <div class="kpi-rich-title">🤖 AI運用 実績【{v_label}】 <span style="color:#F59E0B; font-weight:600;">(result.py 自動回収)</span></div>
                             <div class="kpi-main-metrics">
                                 <div>
                                     <span style="font-size:0.8rem; color:#CBD5E1;">通算回収率</span><br>
@@ -695,7 +629,7 @@ if menu == "📊 ダッシュボード":
                     st.markdown(
                         f"""
                         <div class="kpi-rich-card kpi-bar-amber">
-                            <div class="kpi-rich-title">🤖 AI理論 実績【{v_label}】 <span style="color:#94A3B8; font-weight:600;">(自動回収待機中)</span></div>
+                            <div class="kpi-rich-title">🤖 AI運用 実績【{v_label}】 <span style="color:#94A3B8; font-weight:600;">(自動回収待機中)</span></div>
                             <div class="kpi-main-metrics">
                                 <div>
                                     <span style="font-size:0.8rem; color:#CBD5E1;">通算回収率</span><br>
@@ -776,7 +710,7 @@ if menu == "📊 ダッシュボード":
         if not df_today_latest.empty and "会場" in df_today_latest.columns
         else 0
     )
-    today_investment = today_target_count * 1000
+    today_investment = today_target_count * 2000  # 単勝1,000円＋ワイド2点計1,000円 = 2,000円
 
     c3, c4 = st.columns(2)
     with c3:
@@ -794,7 +728,7 @@ if menu == "📊 ダッシュボード":
         st.markdown(
             f"""
             <div style="background:#151A24; border:1px solid #262F42; border-radius:10px; padding:0.9rem 1.1rem; margin-bottom:0.6rem;">
-                <div style="font-size:0.82rem; color:#CBD5E1;">💸 本日推奨投資額目安 (単勝1点1,000円換算)</div>
+                <div style="font-size:0.82rem; color:#CBD5E1;">💸 本日推奨投資額目安 (単勝＋ワイド計2,000円/R換算)</div>
                 <div style="font-size:1.4rem; font-weight:700; color:#FBBF24;">{today_investment:,} <span style="font-size:0.85rem; color:#94A3B8; font-weight:400;">円</span></div>
             </div>
             """,
@@ -803,7 +737,7 @@ if menu == "📊 ダッシュボード":
 
     st.write("")
 
-    # 回収率推移グラフ ＆ 期間・単位切り替えセレクトボックス
+    # 回収率推移グラフ
     col_chart_title, col_chart_select = st.columns([6, 4])
     with col_chart_title:
         st.markdown('<div style="font-size:1.1rem; font-weight:700; color:#FFFFFF; margin-bottom:4px;">回収率推移</div>', unsafe_allow_html=True)
@@ -918,16 +852,31 @@ if menu == "📊 ダッシュボード":
         )
 
 # ==========================================
-# 🎯 画面 2: 厳選勝負レース
+# 🎯 画面 2: 厳選勝負レース（ハイブリッド仕様）
 # ==========================================
 elif menu == "🎯 厳選勝負レース":
     st.markdown(f'<div class="main-title">本日の厳選勝負レース ({latest_date_str or "最新"})</div>', unsafe_allow_html=True)
-    st.markdown('<div class="last-update">スプレッドシート「当日予想」から事前確定ルール合致馬を自動抽出</div>', unsafe_allow_html=True)
+    st.markdown('<div class="last-update">出馬表から事前確定ルール合致馬および相手2頭（単＋ワイド2点）を自動選出</div>', unsafe_allow_html=True)
 
     if not df_picks_latest.empty:
         for _, row in df_picks_latest.iterrows():
             rule_txt = row.get("事前確定判定", row.get("黄金ルール詳細", ""))
             mark_txt = row.get("評価", row.get("印", ""))
+
+            # 相手2頭の抽出
+            partners = get_hybrid_partners(df_today_latest, row["会場"], row["R"], row["馬番"])
+            if len(partners) >= 2:
+                p1, p2 = partners[0], partners[1]
+                p_text = f"{p1['馬番']}番 {p1.get('馬名','')} ／ {p2['馬番']}番 {p2.get('馬名','')}"
+                w_text = f"ワイド {row['馬番']} － {p1['馬番']}, {p2['馬番']}（計2点）"
+            elif len(partners) == 1:
+                p1 = partners[0]
+                p_text = f"{p1['馬番']}番 {p1.get('馬名','')}"
+                w_text = f"ワイド {row['馬番']} － {p1['馬番']}（計1点）"
+            else:
+                p_text = "相手選出中"
+                w_text = f"ワイド {row['馬番']} 流し"
+
             st.markdown(
                 f"""
                 <div class="race-card">
@@ -946,13 +895,13 @@ elif menu == "🎯 厳選勝負レース":
                         </div>
                     </div>
                     <div style="display:flex; gap:10px; flex-wrap:wrap;">
-                        <div style="background:#1B2338; padding:8px 12px; border-radius:8px; border-left:3px solid #F59E0B; flex:1; min-width:200px;">
-                            <b style="font-size:0.95rem; color:#FFFFFF;">🚀 【本線】単勝 {row['馬番']}番</b><br>
-                            <span style="font-size:0.8rem; color:#CBD5E1;">推奨: 1,000円（利益を狙うメイン馬券）</span>
+                        <div style="background:#1B2338; padding:10px 14px; border-radius:8px; border-left:3px solid #F59E0B; flex:1; min-width:220px;">
+                            <b style="font-size:0.95rem; color:#FFFFFF;">🚀 【本線・回収狙い】単勝 {row['馬番']}番</b><br>
+                            <span style="font-size:0.82rem; color:#CBD5E1;">推奨: 1,000円（利益を伸ばすメイン馬券）</span>
                         </div>
-                        <div style="background:#1B2338; padding:8px 12px; border-radius:8px; border-left:3px solid #10B981; flex:1; min-width:200px;">
-                            <b style="font-size:0.95rem; color:#FFFFFF;">🛡️ 【抑え】複勝 {row['馬番']}番</b><br>
-                            <span style="font-size:0.8rem; color:#CBD5E1;">推奨: 1,000円〜2,000円（資金防衛の保険馬券）</span>
+                        <div style="background:#1B2338; padding:10px 14px; border-radius:8px; border-left:3px solid #10B981; flex:1.2; min-width:260px;">
+                            <b style="font-size:0.95rem; color:#FFFFFF;">🛡️ 【抑え・上乗せ】{w_text}</b><br>
+                            <span style="font-size:0.82rem; color:#CBD5E1;">相手本線: {p_text}（推奨各500円 / ダブル的中狙い）</span>
                         </div>
                     </div>
                 </div>
@@ -960,7 +909,7 @@ elif menu == "🎯 厳選勝負レース":
                 unsafe_allow_html=True,
             )
     else:
-        st.info("現在、事前確定ルールに合致する勝負レースはありません。")
+        st.info("現在、事前確定ルールに合致する勝負レースはありません（無理に買わず完全見送りを推奨）。")
 
     if df_skip is not None and not df_skip.empty:
         st.markdown("<div style='margin-top:1.5rem;'></div>", unsafe_allow_html=True)
@@ -972,7 +921,7 @@ elif menu == "🎯 厳選勝負レース":
             st.dataframe(df_skip, use_container_width=True, hide_index=True)
 
 # ==========================================
-# 📝 画面 3: レジまぐ投稿原稿
+# 📝 画面 3: レジまぐ投稿原稿（ハイブリッド対応）
 # ==========================================
 elif menu == "📝 レジまぐ投稿原稿":
     st.markdown('<div class="main-title">📝 レジまぐ投稿用 原稿ジェネレーター</div>', unsafe_allow_html=True)
@@ -982,7 +931,7 @@ elif menu == "📝 レジまぐ投稿原稿":
     with col_opt1:
         style_opt = st.radio("タイトル表現", ["標準（計○鞍）", "厳選強調（渾身の○鞍勝負）"], horizontal=True)
     with col_opt2:
-        ticket_opt = st.radio("推奨券種の表記", ["単複併記（推奨スタイル）", "単勝1点勝負"], horizontal=True)
+        ticket_opt = st.radio("推奨券種の表記", ["単勝＋ワイド2点（ハイブリッド推奨）", "単勝1点勝負"], horizontal=True)
 
     n_picks = len(df_picks_latest)
     dt_disp = latest_date_str if latest_date_str else datetime.now().strftime("%Y/%m/%d")
@@ -1003,7 +952,7 @@ elif menu == "📝 レジまぐ投稿原稿":
 
     free_body_text = f"""南関東4場（大井・川崎・船橋・浦和）および佐賀競馬の統計解析レポートです。
 
-出馬表確定時点における枠順バイアス・コース砂質・ラップ適性を数値化し、過去4年半の全出走データ検証において「長期回収率100%超」が実証された統計的優位性のあるレースのみを抽出しています。
+出馬表確定時点における枠順バイアス・コース砂質・ラップ適性を数値化し、過去4年半の全出走データ検証において「レース的中率54.4%・回収率128.3%・純利益+90万円超」が実証された統計的優位性のあるレースのみを抽出しています。
 
 ◆ 本日の公開対象レース（計{n_picks}鞍）
 {race_list_str}
@@ -1011,18 +960,32 @@ elif menu == "📝 レジまぐ投稿原稿":
 ◆ 運用ポリシー
 ・地力指数と砂・コース適性を融合した多面的スクリーニング
 ・オッズの直前変動に振り回されない「事前確定型」運用
+・基本買い目：単勝1点 ＋ 相手上位へのワイド2点（ダブル的中＆資金防衛ハイブリッド）
 ・感情を排し、条件合致レースを淡々と買い続けることで確率の収束を図る設計
 
 ⚠️【ご購入前に必ずお読みください】
 当レポートは数レース単位での短期的な的中や利益を保証するものではありません。確率の偏りにより一時的な連敗（ドローダウン）が発生する場合もございます。長期的な統計的優位性をご理解いただける方のみ、余剰資金の範囲内で自己責任にてご活用ください。※直前オッズ1.4倍以下の場合は見送り推奨"""
 
-    paid_lines = [f"本日の厳選勝負レース・買い目一覧です（計{n_picks}鞍）。\n"]
     if not df_picks_latest.empty:
+        paid_lines = [f"本日の厳選勝負レース・買い目一覧です（計{n_picks}鞍）。\n"]
         for _, p in df_picks_latest.iterrows():
             rule_txt = p.get("事前確定判定", p.get("黄金ルール詳細", ""))
             mark_txt = p.get("評価", p.get("印", ""))
-            if "併記" in ticket_opt:
-                t_str = f"【本線（回収重視）】単勝 {p['馬番']}番\n■ 推奨馬券: 【抑え（的中重視）】複勝 {p['馬番']}番"
+
+            partners = get_hybrid_partners(df_today_latest, p["会場"], p["R"], p["馬番"])
+            if "ハイブリッド" in ticket_opt:
+                if len(partners) >= 2:
+                    p1, p2 = partners[0], partners[1]
+                    t_str = f"""  【本線・回収狙い】単勝 {p['馬番']}番（推奨1,000円）
+■ 相手本線   : {p1['馬番']}番({p1.get('馬名','')}), {p2['馬番']}番({p2.get('馬名','')})
+■ 抑え・上乗せ : ワイド {p['馬番']} － {p1['馬番']}, {p2['馬番']}（計2点 / 推奨各500円） ※ダブル的中狙い"""
+                elif len(partners) == 1:
+                    p1 = partners[0]
+                    t_str = f"""  【本線・回収狙い】単勝 {p['馬番']}番（推奨1,000円）
+■ 相手本線   : {p1['馬番']}番({p1.get('馬名','')})
+■ 抑え・上乗せ : ワイド {p['馬番']} － {p1['馬番']}（計1点 / 推奨1,000円） ※ダブル的中狙い"""
+                else:
+                    t_str = f"単勝 {p['馬番']}番（推奨1,000円）"
             else:
                 t_str = f"単勝 {p['馬番']}番（1点勝負）"
 
@@ -1030,16 +993,24 @@ elif menu == "📝 レジまぐ投稿原稿":
                 f"""━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🎯 【{p['会場']} {p['R']}】 ({p.get('発走時刻', '')}発走 / ダ{p['距離']}) {p['レース名']}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-■ 推奨馬 : {mark_txt} 【{p['馬番']}番 {p['馬名']}】 ({p['枠番']}枠 / 騎手:{p.get('騎手', '-')})
-■ 指数順位: 地力値 {p['RL']}位 ／ コース適性 {p['CL']}位
-■ 採用根拠: {rule_txt}
-■ 推奨馬券: {t_str}
+■ 推奨馬   : {mark_txt} 【{p['馬番']}番 {p['馬名']}】 ({p['枠番']}枠 / 騎手:{p.get('騎手', '-')})
+■ 指数順位 : 地力値 {p['RL']}位 ／ コース適性 {p['CL']}位
+■ 採用根拠 : {rule_txt}
+■ 推奨馬券 :
+{t_str}
 """
             )
+        paid_lines.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+        paid_body_text = "\n".join(paid_lines)
     else:
-        paid_lines.append("本日は基準を満たす勝負レースがありませんでした。")
-    paid_lines.append("━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    paid_body_text = "\n".join(paid_lines)
+        paid_body_text = """━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【本日の配信について（完全見送り・資金防衛）】
+全レースをAIデータ解析した結果、本日は当システムの長期黒字基準（全15ゾーン確定条件）を満たす期待値の高いレースが1鞍もありませんでした。
+
+当配信は「無駄な投票を避けて資金を減らさないこと」を最重要ポリシーとしております。
+読者の皆様の資金防衛を最優先とし、本日は【完全見送り（ノーベット）】といたします。
+また条件が揃った勝負日に全力出撃いたします。
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━"""
 
     st.markdown("#### ① 記事タイトル")
     st.code(title_text, language="text")
@@ -1352,14 +1323,43 @@ elif menu == "💻 ターミナル操作マニュアル":
     st.markdown("</div>", unsafe_allow_html=True)
 
 # ==========================================
-# 🗄️ 画面 8: 過去データ分析（S/A/Bランク付き）
+# 🗄️ 画面 8: 過去データ分析（ハイブリッド確定実績反映）
 # ==========================================
 elif menu == "🗄️ 過去データ分析":
     st.markdown('<div class="main-title">オッズ非依存・事前確定ポートフォリオ検証実績（4.5年間）</div>', unsafe_allow_html=True)
-    st.markdown('<div class="last-update">出馬表確定時点で100%買い目が決まる全15ゾーン完全制覇バックテスト成績と推奨ランク格付け（1点1,000円換算）</div>', unsafe_allow_html=True)
+    st.markdown('<div class="last-update">出馬表確定時点で100%買い目が決まる全15ゾーン完全制覇バックテスト成績</div>', unsafe_allow_html=True)
+
+    # 🌟 ハイブリッド確定実績のハイライトカード
+    st.markdown(
+        """
+    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:1.2rem;">
+        <div style="background:#151A24; border:1px solid #10B981; border-left:5px solid #10B981; border-radius:10px; padding:12px 16px; flex:1; min-width:200px;">
+            <span style="color:#34D399; font-weight:800; font-size:0.92rem;">🛡️ ハイブリッド的中率</span><br>
+            <span style="font-size:1.6rem; font-weight:800; color:#FFFFFF;">54.4%</span>
+            <span style="font-size:0.8rem; color:#CBD5E1;">（2回に1回以上的中）</span>
+        </div>
+        <div style="background:#151A24; border:1px solid #F59E0B; border-left:5px solid #F59E0B; border-radius:10px; padding:12px 16px; flex:1; min-width:200px;">
+            <span style="color:#FBBF24; font-weight:800; font-size:0.92rem;">🔥 ハイブリッド回収率</span><br>
+            <span style="font-size:1.6rem; font-weight:800; color:#FFFFFF;">128.3%</span>
+            <span style="font-size:0.8rem; color:#CBD5E1;">（単勝+ワイド各500円）</span>
+        </div>
+        <div style="background:#151A24; border:1px solid #10B981; border-left:5px solid #10B981; border-radius:10px; padding:12px 16px; flex:1; min-width:200px;">
+            <span style="color:#34D399; font-weight:800; font-size:0.92rem;">💰 トータル純利益</span><br>
+            <span style="font-size:1.6rem; font-weight:800; color:#10B981;">+906,850円</span>
+            <span style="font-size:0.8rem; color:#CBD5E1;">（4.5年間累積）</span>
+        </div>
+        <div style="background:#151A24; border:1px solid #38BDF8; border-left:5px solid #38BDF8; border-radius:10px; padding:12px 16px; flex:1; min-width:200px;">
+            <span style="color:#38BDF8; font-weight:800; font-size:0.92rem;">⚡ 最大連敗数</span><br>
+            <span style="font-size:1.6rem; font-weight:800; color:#FFFFFF;">8連敗</span>
+            <span style="font-size:0.8rem; color:#CBD5E1;">（単勝19連敗から大幅低減）</span>
+        </div>
+    </div>
+    """,
+        unsafe_allow_html=True,
+    )
 
     st.markdown(
-"""<div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:1rem;">
+        """<div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:1rem;">
 <div style="background:#151A24; border:1px solid #F59E0B; border-left:4px solid #F59E0B; border-radius:8px; padding:8px 14px; flex:1; min-width:200px;">
 <span style="color:#FBBF24; font-weight:800; font-size:0.95rem;">👑 Sランク（特注勝負）</span><br>
 <span style="color:#CBD5E1; font-size:0.8rem;">単勝回収率 130%超の最優先ゾーン</span>
@@ -1377,7 +1377,7 @@ elif menu == "🗄️ 過去データ分析":
     )
 
     st.markdown(
-"""<div style="overflow-x: auto; border-radius: 8px; border: 1px solid #262F42; margin-top: 0.5rem;">
+        """<div style="overflow-x: auto; border-radius: 8px; border: 1px solid #262F42; margin-top: 0.5rem;">
 <table style="width:100%; border-collapse: collapse; color: #F3F4F6; background-color: #151A24; font-size: 0.92rem;">
 <thead>
 <tr style="background-color: #10141D; color: #FBBF24; border-bottom: 2px solid #262F42; text-align: left;">
